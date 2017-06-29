@@ -1,0 +1,2 @@
+#!/bin/sh
+echo $1" is at "`locate /$1/Makefile | grep ^/usr/ports | grep Makefile `

@@ -1,0 +1,4 @@
+#!/bin/sh
+make -C /usr/ports/irc/quassel package
+cp /usr/ports/irc/quassel/work/pkg/quassel-*.txz /var/synth/live_packages/All/
+echo "pkg moved to synth cache"

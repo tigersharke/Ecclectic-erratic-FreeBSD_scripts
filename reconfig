@@ -1,0 +1,5 @@
+#!/bin/sh
+# if ! (make -C /usr/ports/$1 -q) then
+if [ -d /usr/ports/$1 ]; then
+ make -C /usr/ports/$1 config
+fi
