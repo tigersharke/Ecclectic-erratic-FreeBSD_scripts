@@ -1,0 +1,16 @@
+#!/bin/sh
+cd ~
+echo "Sorry this requires an up-to-date locate database"
+rm ~/tempfilelist
+touch ~/tempfilelist
+for line in `cat ~/reinstall-these-trunc`;do
+#for line in `cat ~/reinstall-these`;do
+echo `locate /$line/Makefile | grep -m 1 ^/usr/ports | awk '/Makefile/' | sed 's:/Makefile.*\ *::' | sed 's:/usr/ports/::'` |tee -a ~/tempfilelist
+#echo $line && pkg origin $line >> ~/tempfilelist
+done
+echo "---"
+echo "now sending to synth"
+##synth install ~/tempfilelist 
+yes|synth force `cat ~/tempfilelist`
+rm ~/tempfilelist
+#ex -sc '%s/\(\.com\).*/\1/ | x'
