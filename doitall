@@ -1,16 +1,9 @@
 #!/bin/sh
 cd ~
-echo "Sorry this requires an up-to-date locate database"
-rm ~/testfile ~/tempfilelist2 ~/thefiles
-echo "n" | pkg remove $1 |tee -a testfile
-cat testfile | awk '/\t/'| sed "s:^.::1" |tee -a thefiles 
-for line in `cat ~/thefiles`;do
-pkg origin $line |tee -a ~/tempfilelist2
-done
-#need to remove first line since it should be the pkg that is to be removed, not its dependencies.
+rm ~/thefiles ~/finalfilelist
+pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tee -a thefiles 
+tail -n +2 thefiles >> finalfilelist
 #yes|pkg remove $1
 #echo "---"
 #echo "now sending to synth"
-###synth install ~/tempfilelist 
-#yes|synth force `cat ~/tempfilelist`
-#rm ~/tempfilelist
+#yes|synth force `cat ~/finalfilelist`
