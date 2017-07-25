@@ -1,9 +1,9 @@
 #!/bin/sh
 cd ~
-rm ~/thefiles ~/finalfilelist
-pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tee -a thefiles 
-tail -n +2 thefiles >> finalfilelist
+filename=$1__dependents
+rm ~/$filename
+pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tail -n +2 |tee -a ~/$filename 
 #yes|pkg remove $1
 #echo "---"
 #echo "now sending to synth"
-#yes|synth force `cat ~/finalfilelist`
+#yes|synth force `cat ~/$filename`
