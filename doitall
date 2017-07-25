@@ -1,9 +1,22 @@
 #!/bin/sh
 cd ~
 filename=$1__dependents
-rm ~/$filename
-pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tail -n +2 |tee -a ~/$filename 
+removed=`pkg origin $1`
+if [ -z "$removed" ]; then
+  echo "pkg says $1 is already gone"
+else
+if [ -f "$filename" ]; then
+rm $filename
+fi
+pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tail -n +2 |tee -a $filename 
+dependencies=`cat $filename`
+if [ -z "$dependencies" ]; then
+  echo "$1 has no dependencies"
+  rm $filename
+fi
 #yes|pkg remove $1
 #echo "---"
 #echo "now sending to synth"
-#yes|synth force `cat ~/$filename`
+#yes|synth force `cat $filename`
+# endif
+fi
