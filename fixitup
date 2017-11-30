@@ -1,4 +1,4 @@
 #!/bin/sh
 cd ~
 filename=$1__fixyfixy
-echo "n"|pkg fetch -d $1 | awk '{ print $1 }' |tail -n +9| sed -e '/^Number$/,$d' -e '/^$/d' -e '$!s/$/ \\/'|tee -a $filename 
+yes n |pkg fetch -d $1 | awk '{ print $1 }' |tail -n +9| sed -e '/^Number$/,$d' -e '/^$/d' -e '$!s/$/ \\/'|tee -a $filename 
