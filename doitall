@@ -8,7 +8,7 @@ else
 if [ -f "$filename" ]; then
 rm $filename
 fi
-pkg origin `echo "n" | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tail -n +2 |tee -a $filename 
+pkg origin `yes n | pkg remove $1 | awk '/\t/'| sed "s:^.::1" `|tail -n +2 |tee -a $filename 
 dependencies=`cat $filename`
 if [ -z "$dependencies" ]; then
   echo "$1 has no dependencies"
